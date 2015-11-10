@@ -66,14 +66,12 @@ node <filename>
 We use the require function to export modules defined in other
 files into our main file
 ```
-// This imports a natively defined nodejs package
+// This imports a natively defined nodejs package or a 
+// dependency in the node_modules folder.
 require('http');
 
-// This imports a nodejs package defined in the node_modules
-// folder within your apps directory.
-require('./express');
-
-// This imports a module from a folder within your app
+// This imports a module from a folder relative to where require 
+// was called.
 require('./models/Movie.js');
 ```
 
