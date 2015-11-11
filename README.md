@@ -86,7 +86,63 @@ npm init
 // run this in the terminal within your app directory. 
 npm install --save <module_name>
 ```
-  
+
+# RESTFUL Routes
+## What is REST?
+- REST is an acronym that stands for Representational State Transfer
+
+## Why REST?
+- REST provides a standard method for resource manipulation on the 
+server.
+
+## Components of REST
+- A URL that represents the resource.
+- A http verb/method that maps to a controller on the server.
+
+`GET /photo/19`
+
+
+## Using REST in a Web Application 
+1. Client sends a request: `GET /movie/198`
+2. The server's router maps that request and the verb to a 
+controller's action:
+```
+The request /movie/198 would be mapped to a controller called
+Movie which would have an action called show to handle that request. 
+```
+3. The show action will communicate with the Movie Model and query
+it for a movie with the id 198.
+
+## Common patterns of restful verbs and actions
+Checkout the section titled `2.2 CRUD, Verbs, and Actions` for a
+clear example of a resource using RESTFUL routing [Rails routing](http://guides.rubyonrails.org/routing.html) 
+
+
+## CORS
+- This is an acronym for Cross Origin Resource Sharing.
+- It refers to the ability of one domain to use/ask for resources 
+from another domain.
+    Example: 
+    The html with  this image tag is being served
+    from http://domain-a.com <img src="http://domain-b.com/mouse.jpg">
+    It is requesting an image from a http://domain-b.com which is a
+    different domain from where it's being hosted.
+- This works when a html page does it, but does NOT work when using
+scripts to perform the request. If a script on that page were to ask
+for the same image using the XMLHttpRequest object(Using Ajax),the 
+browser would throw a CORS error.
+- The only way that a script can access a different resource from
+another domain is if the server on that domain allows it to.
+- This is done by adding that domain to the request Header known as
+Access-Control-Allow-Origin
+```
+Access-Control-Allow-Origin: <allowed domains or * to allow any domain>
+```
+ 
+
+
+
+
 
 
 
