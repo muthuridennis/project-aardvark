@@ -6,7 +6,7 @@ that is asynchronous in nature.
 
 It is written using Javascript.
 
-## How it works in a Nutshell
+## How Nodes event loop works in a Nutshell
 1. Node receives events.
 2. It stashes them in an event que.
 3. The events are then pushed to a thread pool
