@@ -118,7 +118,7 @@ Checkout the section titled `2.2 CRUD, Verbs, and Actions` for a
 clear example of a resource using RESTFUL routing [Rails routing](http://guides.rubyonrails.org/routing.html) 
 
 
-## CORS
+# CORS
 - This is an acronym for Cross Origin Resource Sharing.
 - It refers to the ability of one domain to use/ask for resources 
 from another domain.
@@ -140,7 +140,7 @@ Access-Control-Allow-Origin: <allowed domains or * to allow any domain>
 ```
 
 
-## NoSql Databases
+# NoSql Databases
 - These are databases that define ways of accessing and storing data
 in ways other than using relations.
 
