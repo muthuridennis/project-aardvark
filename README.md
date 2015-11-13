@@ -138,14 +138,35 @@ Access-Control-Allow-Origin
 ```
 Access-Control-Allow-Origin: <allowed domains or * to allow any domain>
 ```
- 
+
+
+## NoSql Databases
+- These are databases that define ways of accessing and storing data
+in ways other than using relations.
+
+## Why NoSql?
+- NoSql was developed as a response to the rising demand of:
+    + on-demand
+    + scalable
+    + easily replicable
+    + minimal configuration
+databases that were required to respond to the needs of modern
+applications.
+
+## Types of NoSql
+- Document databases
+- Graph stores
+- Key-value stores
+- Wide-column stores
+
+## Looking for Help
+1. Documentation
+2. Forums
+3. Tutorials
+4. Search engine e.g. Google, Bing, DuckDuckGo
 
 
 
+Checkout [this link](http://nosql-database.org/) for a list of current NoSql databases.
 
-
-
-
-
-
-
+For further reading on no-sql databases [Mongo db, no-sql explained](https://www.mongodb.com/nosql-explained)
