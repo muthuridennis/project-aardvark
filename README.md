@@ -16,8 +16,7 @@ result back to Node.
 
 ## Concepts
 - Event driven
-    + Node libraries receive events and excute
-    execute callbacks based on those events.
+    + Node libraries receive events and execute callbacks based on those events.
 ```
 // jquery
 $('div').on('click', function(){
@@ -33,7 +32,7 @@ http.createServer(function(request, response){
 ```
 - Asynchronous
     - Node uses a non-procedural style of computation.
-    - It allows code to be excuted in no particular
+    - It allows code to be executed in no particular
     order where the previous operation does not have
     to finish before the next one can begin. 
 
