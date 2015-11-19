@@ -2,6 +2,14 @@ var http = require('http');
 var dispatch = require('dispatch');
 var querystring = require('querystring');
 
+// express
+var express = require('express');
+var app = express();
+
+// express middleware
+var bodyParser = require('body-parser');
+
+
 // include mongoose	
 var mongoose = require('mongoose');
 
@@ -9,91 +17,44 @@ mongoose.connect('mongodb://localhost/project-aardvark');
 
 // define our schema
 var movieSchema = mongoose.Schema({
-	name: String,
+	title: String,
 	year_of_release: Number
 })
 
 // compile our model
 var Movie = mongoose.model('Movie', movieSchema);
 
-var server = http.createServer(
-							 dispatch({
-							 	'/movies' : {
-							 			'GET /' : function(request, response, next){
-							 									movies = [
-								 									{
-								 										title: 'Constant Gardener',
-								 										category: ['Drama', 'Mystery', 'Romance'],
-								 										main_actors: [
-								 													{
-											 											first_name: 'Ralph',
-											 											last_name: 'Fiennes' 
-											 										},
-											 										{
-											 											first_name: 'Rachel',
-											 											last_name: 'Weisz' 
-											 										}
-								 										]
-								 									},
-								 									{
-								 										title: 'Last King of Scotland',
-								 										category: ['Biography', 'Drama', 'History'],
-								 										main_actors: [
-								 													{
-											 											first_name: 'James',
-											 											last_name: 'McAvoy' 
-											 										},
-											 										{
-											 											first_name: 'Forest',
-											 											last_name: 'Whitaker' 
-											 										}
-								 										]
-								 									},
-								 									{
-								 										title: 'Ray',
-								 										category: ['Biography', 'Drama', 'Music'],
-								 										main_actors: [
-								 													{
-											 											first_name: 'Jamie',
-											 											last_name: 'Foxx' 
-											 										},
-											 										{
-											 											first_name: 'Regina',
-											 											last_name: 'King' 
-											 										}
-								 										]
-								 									}
-							 									]; 
-							 									response.end(JSON.stringify(movies));
-								 			},
-								 			'POST /': function(request, response, next){
-								 				// Get parameters from the form
-								 				var formData;
-								 				request.on('data', function(chunk){
-								 					formData = querystring.parse(chunk.toString());
-								 				});
 
-								 				request.on('end', function(){
-								 					console.log(formData);
-									 				// Create an instance of a movie
-									 				var movie = new Movie(
-									 					{
-									 						title: formData.title,
-									 						year_of_release: formData.year_of_release
-									 					}
-									 				);
-									 				
-									 				// Save the movie instance
-										 				// If successfull respond with the saved movie instance
-								 					response.end();
-								 				});
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.get('/movies', function(req, res){
+	Movie.find(function(err, movies){
+		if (err) {
+			console.log(err);
+		}else{
+			res.json(movies);
+		}
+	});
+});
 
 
-								 			}
-								 	}						 								 
-								})
-						 );
+app.post('/movies/new', function(req, res) {
+	console.log(req.body);
+	formData = req.body;
 
-server.listen(8081, function(){
-	console.log('Server running on 127.0.0.1:8081');
+	var movie = new Movie(formData);
+	movie.save(function(err, movie) {
+		if (err) {
+			console.log(err);
+		} else { 
+			console.log('Successfully saved the movie');
+			res.redirect('/movies');
+		}
+	});
+});
+
+
+
+app.listen(8081, function(){
+	console.log('Server running on http://127.0.0.1:8081');
 });
