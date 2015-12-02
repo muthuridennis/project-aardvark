@@ -1,7 +1,3 @@
-var http = require('http');
-var dispatch = require('dispatch');
-var querystring = require('querystring');
-
 // express
 var express = require('express');
 var app = express();
