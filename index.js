@@ -14,7 +14,8 @@ mongoose.connect('mongodb://localhost/project-aardvark');
 // define our schema
 var movieSchema = mongoose.Schema({
 	title: String,
-	year_of_release: Number
+	year_of_release: Number,
+	rating: {type: Number, default: 0, min: 0, max: 10}
 })
 
 // compile our model
@@ -61,6 +62,34 @@ app.get('/movies/:id', function(req, res) {
   });
 });
 
+
+app.put('/movies/:id', function(req, res) {
+  movieId = req.params.id;
+  userRating = req.body.rating; 
+
+  // retrieve the movie from Mongodb
+  Movie.findById(movieId, function (err, movie) {
+  	if (err) return console.log(err);
+
+  	movie.rating = userRating;
+  	movie.save(function(err, movie){
+	  	if (err) return console.log(err);
+
+  		res.json(movie);
+  	});
+  });
+});
+
+app.delete('/movies/:id', function(req, res) {
+  movieId = req.params.id;
+
+  // retrieve the movie from Mongodb
+  Movie.remove({_id: movieId}, function(err){
+  	if (err) return console.log(err);
+  	
+  	res.send('Movie was deleted');
+  });
+});
 
 app.listen(8081, function(){
 	console.log('Server running on http://127.0.0.1:8081');
