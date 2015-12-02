@@ -50,6 +50,17 @@ app.post('/movies/new', function(req, res) {
 });
 
 
+app.get('/movies/:id', function(req, res) {
+  movieId = req.params.id;
+
+  // retrieve the movie from Mongodb
+  Movie.findById(movieId, function (err, movie) {
+  	if (err) return console.log(err);
+
+  	res.json(movie);
+  });
+});
+
 
 app.listen(8081, function(){
 	console.log('Server running on http://127.0.0.1:8081');
