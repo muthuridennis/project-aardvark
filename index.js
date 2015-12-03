@@ -21,7 +21,11 @@ var movieSchema = mongoose.Schema({
 // compile our model
 var Movie = mongoose.model('Movie', movieSchema);
 
+// express settings
+app.set('views', './views');
+app.set('view engine', 'jade');
 
+// express middleware
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/movies', function(req, res){
