@@ -68,8 +68,8 @@ app.get('/movies/:id', function(req, res) {
   // retrieve the movie from Mongodb
   Movie.findById(movieId, function (err, movie) {
   	if (err) return console.log(err);
-
-  	res.json(movie);
+		res.render('detail', {"movie": movie});
+  	// res.json(movie);
   });
 });
 
@@ -85,7 +85,6 @@ app.put('/movies/:id', function(req, res) {
   	movie.rating = userRating;
   	movie.save(function(err, movie){
 	  	if (err) return console.log(err);
-
   		res.json(movie);
   	});
   });
