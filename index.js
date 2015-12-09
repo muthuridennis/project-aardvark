@@ -16,7 +16,8 @@ mongoose.connect('mongodb://localhost/project-aardvark');
 var movieSchema = mongoose.Schema({
 	title: String,
 	year_of_release: Number,
-	rating: {type: Number, default: 0, min: 0, max: 10}
+	rating: {type: Number, default: 0, min: 0, max: 10},
+	director: String
 })
 
 // compile our model
@@ -33,7 +34,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/movies', function(req, res){
 	Movie.find()
-			 .select('title year_of_release rating')
+			 .select('title year_of_release rating director')
 			 .exec(function(err, movies){
 								if (err) {
 									console.log(err);
@@ -45,9 +46,12 @@ app.get('/movies', function(req, res){
 				);
 });
 
+app.get('/movies/new', function(req, res){
+	res.render('new');
+});
 
-app.post('/movies/new', function(req, res) {
-	console.log(req.body);
+
+app.post('/movies', function(req, res) {
 	formData = req.body;
 
 	var movie = new Movie(formData);
@@ -73,32 +77,77 @@ app.get('/movies/:id', function(req, res) {
   });
 });
 
-
-app.put('/movies/:id', function(req, res) {
+app.get('/movies/:id/edit', function(req, res){
   movieId = req.params.id;
-  userRating = req.body.rating; 
+
+  // retrieve the movie from Mongodb
+  Movie.findById(movieId, function (err, movie) {
+  	if (err) return console.log(err);
+		res.render('edit', {"movie": movie});
+  	// res.json(movie);
+  });	
+});
+
+
+
+function updateMovie(method, req, res){
+  movieId = req.params.id;
+
+  userRating = req.body.rating;
+  userTitle =  req.body.title;
+  userYearOfRelease =  req.body.year_of_release;
+  userDirector =  req.body.director;
 
   // retrieve the movie from Mongodb
   Movie.findById(movieId, function (err, movie) {
   	if (err) return console.log(err);
 
   	movie.rating = userRating;
+  	movie.title = userTitle;
+  	movie.year_of_release = userYearOfRelease;
+  	movie.director = userDirector;
+  	
   	movie.save(function(err, movie){
 	  	if (err) return console.log(err);
-  		res.json(movie);
+
+  		if (method === 'PUT') {
+  			res.json(movie);
+  		} else{
+	  		res.redirect('/movies/' + movie._id);
+  		};
   	});
   });
+}
+
+app.post('/movies/:id/edit', function(req, res){
+	updateMovie('POST', req, res);
 });
 
-app.delete('/movies/:id', function(req, res) {
+app.put('/movies/:id', function(req, res) {
+	updateMovie('PUT', req, res);
+});
+
+function deleteMovie(method, req, res){
   movieId = req.params.id;
 
   // retrieve the movie from Mongodb
   Movie.remove({_id: movieId}, function(err){
   	if (err) return console.log(err);
   	
-  	res.send('Movie was deleted');
-  });
+  	if (method === 'GET') {
+  		res.redirect('/movies');
+  	} else{
+	  	res.send('Movie was deleted');
+  	};
+  });	
+}
+
+app.get('/movies/:id/delete', function(req, res){
+	deleteMovie('GET', req, res);
+});
+
+app.delete('/movies/:id', function(req, res) {
+	deleteMovie('DELETE', req, res);
 });
 
 app.listen(8081, function(){

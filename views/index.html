@@ -4,11 +4,12 @@
   <title>Movies</title>
 </head>
 <body>
+  {% include 'navbar' %}
   <h1>Movies listing</h1>
-
   <table>
     <thead>
       <th>Title</th>
+      <th>Director</th>
       <th>Year of release</th>
       <th>Rating</th>
     </thead>
@@ -16,6 +17,7 @@
       {% for movie in movies %}
         <tr>
           <td><a href="/movies/{{ movie._id }}">{{ movie.title }}</a></td>
+          <td>{{ movie.director }}</td>
           <td>{{ movie.year_of_release }}</td>
           <td>{{ movie.rating }}</td>
         </tr>
