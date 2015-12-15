@@ -1,9 +1,6 @@
 // include mongoose 
 var mongoose = require('mongoose');
 
-
-mongoose.connect('mongodb://localhost/project-aardvark'); 
-
 // define our schema
 var movieSchema = mongoose.Schema({
   title: String,

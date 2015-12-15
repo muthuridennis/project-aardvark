@@ -11,7 +11,7 @@ router.route('/movies')
       								if (err) {
       									console.log(err);
       								}else{
-      									res.render('index', {"movies": movies});
+      									res.render('movies/index', {"movies": movies});
       									// res.json(movies);
       								}
       							}
@@ -33,7 +33,7 @@ router.route('/movies')
 
 router.route('/movies/new')
       .get(function(req, res){
-        res.render('new');
+        res.render('movies/new');
       });
 
 function updateMovie(method, req, res){
@@ -87,7 +87,7 @@ router.route('/movies/:id')
         // retrieve the movie from Mongodb
         Movie.findById(movieId, function (err, movie) {
           if (err) return console.log(err);
-          res.render('detail', {"movie": movie});
+          res.render('movies/detail', {"movie": movie});
           // res.json(movie);
         });
       })
@@ -105,7 +105,7 @@ router.route('/movies/:id/edit')
         // retrieve the movie from Mongodb
         Movie.findById(movieId, function (err, movie) {
           if (err) return console.log(err);
-          res.render('edit', {"movie": movie});
+          res.render('movies/edit', {"movie": movie});
           // res.json(movie);
         }); 
       })
