@@ -40,8 +40,10 @@ app.use(passport.session());
 // include routes
 var moviesRoutes = require('./routes/movies');
 var usersRoutes = require('./routes/users');
+var indexRoute = require('./routes/index');
 app.use(moviesRoutes);
 app.use(usersRoutes);
+app.use(indexRoute);
 
 // passport config
 var User = require('./models/user');

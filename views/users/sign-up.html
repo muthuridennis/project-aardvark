@@ -5,11 +5,12 @@
 </head>
 <body>
 	<form action="/sign-up" method="post">
+		<p>{{ error }}</p>
 		<label for="">Username</label>
-		<input type="text" name="username" placeholder="username">
+		<input type="text" name="username" value="{{ user.username }}" placeholder="username">
 		<br>
 		<label for="">Email</label>
-		<input type="email" name="email" placeholder="email">
+		<input type="email" name="email" value="{{ user.email }}" placeholder="email">
 		<br>
 		<label for="">Password</label>
 		<input type="password" name="password" placeholder="password">

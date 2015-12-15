@@ -11,7 +11,7 @@ router.route('/movies')
       								if (err) {
       									console.log(err);
       								}else{
-      									res.render('movies/index', {"movies": movies});
+      									res.render('movies/index', {"movies": movies, 'user': req.user});
       									// res.json(movies);
       								}
       							}
