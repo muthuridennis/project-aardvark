@@ -20,6 +20,8 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/project-aardvark'); 
 
 // express settings
+app.set('port', (process.env.PORT || 8081));
+
 app.engine('html', cons.liquid);
 
 app.set('views', path.join(__dirname, 'views'));
@@ -53,6 +55,6 @@ passport.deserializeUser(User.deserializeUser());
 
 
 
-app.listen(8081, function(){
-	console.log('Server running on http://127.0.0.1:8081');
+app.listen(app.get('port'), function(){
+	console.log('Server running on http://127.0.0.1:%s',app.get('port'));
 });
